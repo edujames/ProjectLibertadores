@@ -6,11 +6,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
 
     private Animator animator;
+    private Rigidbody rb;
     private Vector2 moveInput;
 
     void Start()
     {
         animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody>();
     }
 
     void Update()
@@ -33,7 +35,10 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool("isMoving", false);
         }
+    }
 
-        transform.Translate(new Vector3(moveInput.x, moveInput.y, 0) * moveSpeed * Time.deltaTime);
+    void FixedUpdate()
+    {
+        rb.MovePosition(rb.position + (moveSpeed * Time.fixedDeltaTime * new Vector3(moveInput.x, 0, moveInput.y)));
     }
 }
