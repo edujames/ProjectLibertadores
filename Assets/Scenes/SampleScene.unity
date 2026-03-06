@@ -366,7 +366,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 58
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -392,8 +392,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.16307598, y: 0.0061948346, z: -0.0010403546, w: -0.98659354}
-  m_LocalPosition: {x: 136.32346, y: 2.746325, z: 46.48496}
+  m_LocalRotation: {x: 0.18961193, y: -0.020304615, z: 0.003955468, w: 0.9816412}
+  m_LocalPosition: {x: 136.53748, y: 2.5574062, z: 46.57127}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -456,7 +456,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraFollow
   target: {fileID: 684615810}
-  offset: {x: 0, y: 5, z: -10}
+  offset: {x: 0, y: 2, z: -6}
   smoothSpeed: 5
 --- !u!1001 &334089642
 PrefabInstance:
@@ -1124,7 +1124,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 5e5c3ad5abd42dd4fb0edb204394dc9f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
@@ -1146,7 +1146,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   moveSpeed: 5
-  spriteRenderer: {fileID: 1461684157}
 --- !u!54 &684615813
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1171,8 +1170,8 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
+  m_Interpolate: 1
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!1 &692098948
 GameObject:
@@ -1207,7 +1206,7 @@ TerrainCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_ProvidesContacts: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
   m_TerrainData: {fileID: 15600000, guid: b70344da83f4b724d95285fee88e27a5, type: 2}
@@ -2236,7 +2235,7 @@ GameObject:
   - component: {fileID: 1461684156}
   - component: {fileID: 1461684157}
   m_Layer: 0
-  m_Name: frente1
+  m_Name: PlayerSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
