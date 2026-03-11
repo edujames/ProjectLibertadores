@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
-using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
+
 
 public class BattleManager : MonoBehaviour
 {
@@ -113,7 +112,7 @@ public class BattleManager : MonoBehaviour
                 else
                 {
                     // Ataque normal con rango aleatorio
-                    int baseDamage = move.GetRandomDamage();
+                    int baseDamage = move.GetRandomDamage() + attacker.currentAttack;
 
                     // Aplicar buff de Recarga si corresponde
                     if (move.moveName == "Disparo de Carabina" && attacker.hasReloadBuff)
@@ -167,7 +166,7 @@ public class BattleManager : MonoBehaviour
         if (target != null)
         {
             Debug.Log(enemy.data.characterName + " ataca a " + target.data.characterName);
-            target.TakeDamage(enemy.data.attack);
+            target.TakeDamage(enemy.currentAttack);
         }
         yield return new WaitForSeconds(1f);
     }

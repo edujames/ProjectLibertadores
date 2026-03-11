@@ -6,15 +6,15 @@ public class BattleUnit : MonoBehaviour
     public CharacterData data;
     public int currentHP;
     public int currentMP;
+    public int currentAttack;   // nuevo: stat de ataque en runtime
+    public int currentDefense;  // nuevo: stat de defensa en runtime
+    public int level = 1;       // nuevo: nivel actual del personaje
 
-    // Rastrea cuántos turnos le quedan de cooldown a cada move
-    // La clave es el MoveData, el valor es turnos restantes
     private Dictionary<MoveData, int> cooldowns = new Dictionary<MoveData, int>();
 
-    // Buffs activos
     public bool isInvulnerable = false;
-    public float damageMultiplier = 1f;  // Arenga lo sube a 1.5f por un turno
-    public bool hasReloadBuff = false;   // Recarga del fusilero
+    public float damageMultiplier = 1f;
+    public bool hasReloadBuff = false;
 
     private Animator animator;
 
@@ -27,10 +27,11 @@ public class BattleUnit : MonoBehaviour
     {
         currentHP = data.maxHP;
         currentMP = data.maxMP;
+        currentAttack = data.attack;     // nuevo
+        currentDefense = data.defense;   // nuevo
         cooldowns.Clear();
     }
 
-    // Verifica si un move está disponible (cooldown y MP)
     public bool CanUseMove(MoveData move)
     {
         if (currentMP < move.mpCost) return false;
@@ -38,17 +39,14 @@ public class BattleUnit : MonoBehaviour
         return true;
     }
 
-    // Registra el cooldown cuando se usa un move
     public void RegisterCooldown(MoveData move)
     {
         if (move.cooldownTurns > 0)
             cooldowns[move] = move.cooldownTurns;
     }
 
-    // Se llama al final de cada turno de esta unidad para reducir cooldowns
     public void TickCooldowns()
     {
-        // Copiamos las keys porque no podemos modificar el Dictionary mientras lo iteramos
         List<MoveData> keys = new List<MoveData>(cooldowns.Keys);
         foreach (var key in keys)
         {
@@ -64,7 +62,10 @@ public class BattleUnit : MonoBehaviour
             Debug.Log(data.characterName + " es invulnerable, no recibe daño");
             return;
         }
-        currentHP = Mathf.Max(0, currentHP - amount);
+        // nuevo: la defensa reduce el daño, mínimo 1 para que siempre duela algo
+        int reduced = Mathf.Max(1, amount - currentDefense);
+        currentHP = Mathf.Max(0, currentHP - reduced);
+        Debug.Log(data.characterName + " recibe " + reduced + " daño (bloqueó " + (amount - reduced) + ")");
     }
 
     public void Heal(int amount)
@@ -72,11 +73,22 @@ public class BattleUnit : MonoBehaviour
         currentHP = Mathf.Min(data.maxHP, currentHP + amount);
     }
 
-    // Limpia buffs de un solo turno al final del turno
+    // nuevo: sube stats al subir de nivel
+    public void LevelUp()
+    {
+        level++;
+        // Cada nivel agrega 10% del stat base
+        // RoundToInt redondea al entero más cercano
+        currentAttack = Mathf.RoundToInt(data.attack * (1f + level * 0.1f));
+        currentDefense = Mathf.RoundToInt(data.defense * (1f + level * 0.1f));
+        int hpBonus = Mathf.RoundToInt(data.maxHP * 0.1f);
+        currentHP = Mathf.Min(currentHP + hpBonus, data.maxHP + hpBonus * level);
+        Debug.Log(data.characterName + " subió al nivel " + level);
+    }
+
     public void ClearTurnBuffs()
     {
         isInvulnerable = false;
         damageMultiplier = 1f;
-        // hasReloadBuff NO se limpia aquí, solo se limpia cuando se usa Disparo
     }
 }
