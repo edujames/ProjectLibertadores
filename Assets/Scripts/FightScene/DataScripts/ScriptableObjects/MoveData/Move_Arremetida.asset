@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 649676044b1e51f4bbc5d223ee749359, type: 3}
+  m_Name: Move_Arremetida
+  m_EditorClassIdentifier: Assembly-CSharp::MoveData
+  moveName: Move_Arremetida
+  mpCost: 0
+  minDamage: 1
+  maxDamage: 4
+  isHealing: 0
+  isBasicAttack: 1
+  cooldownTurns: 0
+  effectType: 0

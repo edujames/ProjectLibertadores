@@ -1,6 +1,9 @@
-using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
+using static UnityEditor.PlayerSettings;
+using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
 
 public class BattleManager : MonoBehaviour
 {
@@ -84,16 +87,78 @@ public class BattleManager : MonoBehaviour
 
     public void ExecutePlayerAction(MoveData move, BattleUnit target)
     {
-        chosenMove = move;
-        chosenTarget = target;
+        BattleUnit attacker = ActiveUnit;
 
-        if (move.isHealing)
-            target.Heal(move.damage);
-        else
-            target.TakeDamage(ActiveUnit.data.attack + move.damage);
+        // Verificar que puede usar el move
+        if (!attacker.CanUseMove(move)) return;
+
+        // Descontar MP
+        attacker.currentMP -= move.mpCost;
+
+        // Registrar cooldown si tiene
+        attacker.RegisterCooldown(move);
+
+        // Resolver el efecto según el tipo
+        switch (move.effectType)
+        {
+            case MoveEffectType.None:
+                if (move.isHealing)
+                {
+                    // Mate Amargo: cura % de HP máximo en lugar de valor fijo
+                    // Por eso en MoveData ponemos minDamage=30 para representar el 30%
+                    int healAmount = Mathf.RoundToInt(target.data.maxHP * (move.minDamage / 100f));
+                    target.Heal(healAmount);
+                    Debug.Log("Cura " + healAmount + " HP");
+                }
+                else
+                {
+                    // Ataque normal con rango aleatorio
+                    int baseDamage = move.GetRandomDamage();
+
+                    // Aplicar buff de Recarga si corresponde
+                    if (move.moveName == "Disparo de Carabina" && attacker.hasReloadBuff)
+                    {
+                        baseDamage = Mathf.RoundToInt(baseDamage * 1.5f);
+                        attacker.hasReloadBuff = false;
+                        Debug.Log("Recarga aplicada, daño aumentado");
+                    }
+
+                    // Aplicar multiplicador de Arenga si está activo
+                    int finalDamage = Mathf.RoundToInt(baseDamage * attacker.damageMultiplier);
+                    target.TakeDamage(finalDamage);
+                    Debug.Log(attacker.data.characterName + " hace " + finalDamage + " daño");
+                }
+                break;
+
+            case MoveEffectType.Invulnerable:
+                // No se compara a los Andes
+                attacker.isInvulnerable = true;
+                Debug.Log(attacker.data.characterName + " es invulnerable este turno");
+                break;
+
+            case MoveEffectType.BuffDamage:
+                // Arenga: sube el multiplicador de todos los héroes vivos
+                foreach (var hero in heroes)
+                {
+                    if (hero.currentHP > 0)
+                        hero.damageMultiplier = 1.5f;
+                }
+                Debug.Log("Arenga activa, todos hacen 50% más de daño");
+                break;
+
+            case MoveEffectType.Reload:
+                // Recarga: activa el buff en el fusilero para su próximo Disparo
+                attacker.hasReloadBuff = true;
+                Debug.Log("Fusilero recargado");
+                break;
+        }
+
+        // Limpiar buffs de turno único al terminar
+        attacker.ClearTurnBuffs();
 
         playerActionChosen = true;
     }
+
 
     IEnumerator EnemyTurn(BattleUnit enemy)
     {

@@ -128,6 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 77764969}
+  - component: {fileID: 77764970}
   m_Layer: 0
   m_Name: BattleManager
   m_TagString: Untagged
@@ -150,6 +151,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &77764970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 77764968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afcd8b7d51118f643b245280855b7187, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BattleManager
+  heroes:
+  - {fileID: 729028490}
+  - {fileID: 1645248137}
+  - {fileID: 1091942033}
+  enemies:
+  - {fileID: 401185993}
 --- !u!1 &297976186
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,6 +401,7 @@ GameObject:
   - component: {fileID: 401185991}
   - component: {fileID: 401185990}
   - component: {fileID: 401185989}
+  - component: {fileID: 401185993}
   m_Layer: 0
   m_Name: PracticeEnemy
   m_TagString: Untagged
@@ -484,6 +504,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &401185993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 401185988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 125859c144400954b845e5e4575468c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BattleUnit
+  data: {fileID: 11400000, guid: 4d55e75bc222d354ba0af65fe21dbfa2, type: 2}
+  currentHP: 0
+  currentMP: 0
+  isInvulnerable: 0
+  damageMultiplier: 1
+  hasReloadBuff: 0
 --- !u!1 &729028485
 GameObject:
   m_ObjectHideFlags: 0
@@ -496,6 +534,7 @@ GameObject:
   - component: {fileID: 729028488}
   - component: {fileID: 729028487}
   - component: {fileID: 729028486}
+  - component: {fileID: 729028490}
   m_Layer: 0
   m_Name: San Martin Capsule
   m_TagString: Untagged
@@ -598,6 +637,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &729028490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 729028485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 125859c144400954b845e5e4575468c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BattleUnit
+  data: {fileID: 11400000, guid: 08a71d6afe408c74da3b27fa438c5c48, type: 2}
+  currentHP: 0
+  currentMP: 0
+  isInvulnerable: 0
+  damageMultiplier: 1
+  hasReloadBuff: 0
 --- !u!1 &1091942028
 GameObject:
   m_ObjectHideFlags: 0
@@ -610,6 +667,7 @@ GameObject:
   - component: {fileID: 1091942031}
   - component: {fileID: 1091942030}
   - component: {fileID: 1091942029}
+  - component: {fileID: 1091942033}
   m_Layer: 0
   m_Name: Gaucho Capsule
   m_TagString: Untagged
@@ -712,6 +770,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1091942033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1091942028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 125859c144400954b845e5e4575468c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BattleUnit
+  data: {fileID: 11400000, guid: ae0afe6c3f6c2c245b71ee58a6bebb49, type: 2}
+  currentHP: 0
+  currentMP: 0
+  isInvulnerable: 0
+  damageMultiplier: 1
+  hasReloadBuff: 0
 --- !u!1 &1548110484
 GameObject:
   m_ObjectHideFlags: 0
@@ -861,6 +937,7 @@ GameObject:
   - component: {fileID: 1645248135}
   - component: {fileID: 1645248134}
   - component: {fileID: 1645248133}
+  - component: {fileID: 1645248137}
   m_Layer: 0
   m_Name: Fusilero Capsule
   m_TagString: Untagged
@@ -963,6 +1040,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1645248137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1645248132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 125859c144400954b845e5e4575468c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BattleUnit
+  data: {fileID: 11400000, guid: 67cc4c82e4506c94b8c955c328493a76, type: 2}
+  currentHP: 0
+  currentMP: 0
+  isInvulnerable: 0
+  damageMultiplier: 1
+  hasReloadBuff: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
